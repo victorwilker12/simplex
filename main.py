@@ -12,40 +12,45 @@ LD = []
 
 Var_F = np.eye(F,dtype=int)
 #print(Var_F)
-for i in range(F):
-	#matriz_func.append([])
-	line = []
-	print("-------")
-	z_function_zero.append(0)
-	for j in range(V):
-		line.append(float(input('digite a variável ' + str(j+1) +" da " + str(i+1) + "º funcao")))	
-	matriz_func.append(line)
 
-matriz_func = np.array(matriz_func)
+def create_matriz(F ,V ,matriz_func,z_function,z_function_zero ,LD):	
+	#print(Var_F)
+	for i in range(F):
+		#matriz_func.append([])
+		line = []
+		print("-------")
+		z_function_zero.append(0)
+		for j in range(V):
+			line.append(float(input('digite a variável ' + str(j+1) +" da " + str(i+1) + "º funcao")))	
+		matriz_func.append(line)
 
-for i in range(V+F):
-	if i < V :
-		z_function.append(float(input("digite os valores da Função Objetiva na posição" + str(i) +" : ")))
-	elif  i >= V:
-		z_function.append(0)
-z_function = np.multiply(-1, z_function)
+	matriz_func = np.array(matriz_func)
 
-
-
-for i in range(F+1):
-	if i > 0:
-		LD.append(float(input("digite os valores da Coluna do Lado Direito da função " + str(i) + " : ")))
-	elif  i == 0:
-		LD.append(0)
-LD = np.vstack(LD)
-
-matriz = np.concatenate((matriz_func, Var_F), axis=1)
-matriz = np.vstack([z_function, matriz])
-matriz = np.c_[matriz,LD]
+	for i in range(V+F):
+		if i < V :
+			z_function.append(float(input("digite os valores da Função Objetiva na posição" + str(i) +" : ")))
+		elif  i >= V:
+			z_function.append(0)
+	z_function = np.multiply(-1, z_function)
 
 
 
-print(matriz)
+	for i in range(F+1):
+		if i > 0:
+			LD.append(float(input("digite os valores da Coluna do Lado Direito da função " + str(i) + " : ")))
+		elif  i == 0:
+			LD.append(0)
+	LD = np.vstack(LD)
+
+	matriz = np.concatenate((matriz_func, Var_F), axis=1)
+	matriz = np.vstack([z_function, matriz])
+	matriz = np.c_[matriz,LD]
+	print(matriz)
+	return matriz
+
+
+matriz = create_matriz(F ,V ,matriz_func,z_function,z_function_zero ,LD)
+
 
 
 # ------ escolhendo pivos -----
